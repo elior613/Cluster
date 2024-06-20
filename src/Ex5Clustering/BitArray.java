@@ -1,17 +1,20 @@
 package Ex5Clustering;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class BitArray implements Clusterable<BitArray>{
 	private ArrayList<Boolean> bits;
 
 	public BitArray(String str){
-		bits = new ArrayList<Boolean>();
+		bits = new ArrayList<Boolean>(Integer.parseInt(str));
 	}
 
 	public BitArray(boolean[] bits) {
@@ -30,8 +33,15 @@ public class BitArray implements Clusterable<BitArray>{
 	}
 
 	public static Set<BitArray> readClusterableSet(String path) throws IOException {
-		// TODO: Complete. If the file contains bitarrays of different lengths,
-		//  retain only those of maximal length
+		try (Stream<String> lines = Files.lines(Paths.get(path))) {
+			Set<BitArray> bits = lines
+					.map(line -> new BitArray(line))
+					.collect(Collectors.toSet());
+			return bits;
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
