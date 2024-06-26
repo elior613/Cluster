@@ -7,8 +7,8 @@ import java.util.Set;
 // A simple validation class for agglomerative clustering. DO NOT submit this file
 public class AgglomerativeClusteringTest {
 	// TODO: change these paths to correspond to the location the files are saved in your computer
-	private static final String POINTS_PATH = "points.txt";
-	private static final String BITARRAYS_PATH = "bitArrays.txt";
+	private static final String POINTS_PATH = "src/files/points.txt";
+	private static final String BITARRAYS_PATH = "src/files/bitArrays.txt";
 
 	public static void main(String[] args) throws IOException {
 		Scanner scanner = new Scanner(System.in);

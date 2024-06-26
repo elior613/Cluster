@@ -14,7 +14,10 @@ public class BitArray implements Clusterable<BitArray>{
 	private ArrayList<Boolean> bits;
 
 	public BitArray(String str){
-		bits = new ArrayList<Boolean>(Integer.parseInt(str));
+		String[] parts = str.split(",");
+		bits = Arrays.stream(parts)
+				.map(Boolean::parseBoolean)
+				.collect(Collectors.toCollection(ArrayList::new));
 	}
 
 	public BitArray(boolean[] bits) {
@@ -29,7 +32,7 @@ public class BitArray implements Clusterable<BitArray>{
 		long differingBitsCount = IntStream.range(0, this.bits.size())
 				.filter(i -> !this.bits.get(i).equals(other.bits.get(i)))
 				.count();
-		return differingBitsCount ;
+		return differingBitsCount;
 	}
 
 	public static Set<BitArray> readClusterableSet(String path) throws IOException {
