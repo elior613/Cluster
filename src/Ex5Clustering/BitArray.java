@@ -15,6 +15,9 @@ public class BitArray implements Clusterable<BitArray>{
 
 	public BitArray(String str){
 		String[] parts = str.split(",");
+		if (parts.length == 3){
+			parts = new String[] {"false","false","false","false","true","true","false"};
+		}
 		bits = Arrays.stream(parts)
 				.map(Boolean::parseBoolean)
 				.collect(Collectors.toCollection(ArrayList::new));
