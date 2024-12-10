@@ -29,8 +29,10 @@ public class AgglomerativeClustering <T extends Clusterable<T>> implements Clust
 				.collect(Collectors.toSet());
 		while (elements.size()>1){
 			// save to an Optional (a 'key-value' data set) pairs of every two sets which have the smallest distance
-			// and are different from each other. one sets is 'key' and the other one is 'value'
+			// and are different from each other. one set is 'key' and the other one is 'value'
+			// optional - nullable, abstactMap - key value, simplyEntry - ctor
 			Optional<AbstractMap.SimpleEntry<Set<T>, Set<T>>> closestClusters = clusters.stream()
+					// flat - transforms elements to a stream and then makes one stream from all
 					.flatMap(c1 -> clusters.stream().filter(c2 -> !c1.equals(c2))
 							.map(c2 -> new AbstractMap.SimpleEntry<>(c1, c2)))
 					.min(Comparator.comparing(entry -> this.distance(entry.getKey(),entry.getValue())));
@@ -43,6 +45,7 @@ public class AgglomerativeClustering <T extends Clusterable<T>> implements Clust
 			// they are considered close, so we want to union them and push to 'clusters' set
 			Set<T> c1 = closestClusters.get().getKey();
 			Set<T> c2 = closestClusters.get().getValue();
+			// using HashSet to reach elements via 'key-value'
 			Set<T> union = new HashSet<>(c1);
 			union.addAll(c2);
 
